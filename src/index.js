@@ -1,9 +1,9 @@
 'use strict'
 const controllers = require('./Controllers')
 const models = require('./Models')
-const errors = require('./View/Error')
-const infos = require('./View/Info')
-const warnings = require('./View/Warnings')
+const errors = require('./View').Errors
+const infos = require('./View').Infos
+const warnings = require('./View').Warnings
 
 class Statistics {
     /**
@@ -22,14 +22,14 @@ class Statistics {
         if (controllers.IsParametersCorrect(parameters)) {
             models.CreateStatisticsInstance(this, parameters)
         } else {
-            warnings.IncompleteParametersInStatisticsConstructor()
-            parameters = models.TryToSetByDefault(parameters)
-            return new Statistics(parameters)
+            this.__data__ = []
+            this.__type__ = 'relevant'
+            this.__metadata__ = {}
         }
     }
+
     clone() {
-        // TODO:cloneStatistics
-        return models.CloneStatistics(this)
+        return new Statistics(models.CloneStatistics(this))
     }
     /**
      * @method data
@@ -38,7 +38,6 @@ class Statistics {
      * changes the previous value of the data property.
      */
     set data(data_array) {
-        // TODO IsDataCorrect and the corresponded error.
         if (controllers.IsDataCorrect(data_array)) this.__data__ = data_array
         else errors.IncorrectDataInDataSetter()
     }
@@ -61,7 +60,6 @@ class Statistics {
      * current Statistics instance.
      */
     set type(type) {
-        // TODO IsTypeCorrect and the corresponded error
         if (controllers.IsTypeCorrect(type)) this.__type__ = type
         else errors.IncorrectTypeArgumentInTypeSetter()
     }
@@ -87,32 +85,32 @@ class Statistics {
      */
     mean() {
         // TODO the models.ComputeMean() and the corresponded error.
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             this.metadata = models.ComputeMean(this)
         } else errors.ImpossibleMeanComputationBecauseOfNominalData()
         return this
     }
-    computeMean() {
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+    get Mean() {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             return models.ComputeMean(this).mean
         } else errors.ImpossibleMeanComputationBecauseOfNominalData()
     }
-    compute_mean() {
-        return this.computeMean()
+    get mean() {
+        return this.Mean
     }
     dispersion() {
         // TODO the models.ComputeDispersion method and the corresponding error.
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             this.metadata = models.ComputeDispersion(this)
         } else errors.ImpossibleDispersionComputationBecauseOfNominalData()
         return this
     }
     computeDispersion() {
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             return models.ComputeDispersion(this).dispersion
         } else errors.ImpossibleDispersionComputationBecauseOfNominalData()
     }
-    compute_dispersion () {
+    compute_dispersion() {
         return this.computeDispersion()
     }
     deviation() {
@@ -120,11 +118,11 @@ class Statistics {
         this.metadata = { deviation }
         return this
     }
-    computeDeviation () {
+    computeDeviation() {
         return Math.sqrt(this.computeDispersion())
     }
     normalize_data() {
-        if (this.type() === 'ordinal') {
+        if (this.type === 'ordinal') {
             this.data = models.Normalize(this)
             // update the mean to 0 and the deviation to 1.
             this.metadata = { mean: 0, 'standard deviation': 1, dispersion: 1 }
@@ -136,13 +134,13 @@ class Statistics {
     }
 
     median() {
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             this.metadata = models.ComputeMedian(this)
         } else warnings.NotPossibleMedianComputationBecauseOfType()
         return this
     }
     computeMedian() {
-        if (this.type() === 'ordinal' || this.type() === 'relevant') {
+        if (this.type === 'ordinal' || this.type === 'relevant') {
             return models.ComputeMedian(this).median
         } else warnings.NotPossibleMedianComputationBecauseOfType()
     }
@@ -173,3 +171,4 @@ class Statistics {
     }
 
 }
+module.exports = Statistics

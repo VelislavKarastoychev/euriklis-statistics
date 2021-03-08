@@ -1,3 +1,3 @@
 'use strict'
-const statistics = require('./src')
-module.exports = statistics
+const Statistics = require('./src')
+module.exports = Statistics

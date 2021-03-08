@@ -49,11 +49,11 @@ function CreateStatisticsInstance(statistics_instance, statistics_options) {
                                 })
                         })
                     new validator(statistics_options.type).is_undefined()
-                    .or().is_same(null)
-                    .on(true, () => errors.IncorrectDataInStatisticsConstructor())
+                        .or().is_same(null)
+                        .on(true, () => errors.IncorrectDataInStatisticsConstructor())
                 })
         })
-    statistics_instance.__metadata__ = statistics_options.metadata
+    statistics_instance.__metadata__ = statistics_options.metadata || {}
     return statistics_instance
 }
 module.exports = CreateStatisticsInstance
