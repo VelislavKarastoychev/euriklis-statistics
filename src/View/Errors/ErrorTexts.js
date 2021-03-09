@@ -6,6 +6,7 @@ const incorrectTypeArgumentInTypeSetter = 'Incorrect type property in the type s
 const incorrectDataInComputeMeanInternalMethod = 'Incorrect data in the internal method compute mean for the Mean method of the library. Note that the data has to be number array or array of number arrays and the type of the statistics instance to be set to "ordinal" or "relevant".'
 const impossibleMeanComputationBecauseOfNominalData = 'Impossible mean computation because of nominal data type. Note that the mean method can be used only for ordinal and relevant data types.'
 const impossibleDispersionComputationBecauseOfNominalData = 'Impossible dispersion computation because of the nominal data type. Note that the dispersion method can be executed only if the type of the data is "ordered" or "relevant".'
+const incorrectMetadata = 'Incorrect metadata parameter in the metadata setter method. Note that the only requirement for the validity of the parameter is to be a legal javascript object. Please check the type of the set parameter of the metadata method.'
 module.exports = {
     ErrorText,
     incorrectDataInStatisticsConstructor,
@@ -14,6 +15,7 @@ module.exports = {
     incorrectDataInComputeMeanInternalMethod,
     impossibleMeanComputationBecauseOfNominalData,
     impossibleDispersionComputationBecauseOfNominalData,
-
+    incorrectMetadata,
+    
        
 }

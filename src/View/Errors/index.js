@@ -6,6 +6,6 @@ module.exports = {
     IncorrectDataInComputeMeanInternalMethod : require('./IncorrectDataInComputeMeanInternalMethod'),
     ImpossibleMeanComputationBecauseOfNominalData : require('./ImpossibleMeanComputationBecauseOfNominalData'),
     ImpossibleDispersionComputationBecauseOfNominalData : require('./ImpossibleDispersionComputationBecauseOfNominalData'),
-    
+    IncorrectMetadata : require('./IncorrectMetadata'),
 
 }

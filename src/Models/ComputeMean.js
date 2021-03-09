@@ -13,7 +13,7 @@ function ComputeMean (statistics_instance) {
             for (i = 0; i < n >> 1; i++) {
                 mean += statistics_instance.data[2 * i] + statistics_instance.data[2 * i + 1]
             }
-            if (n >> 1 << 1 !== n) {
+            if ((n >> 1 << 1) !== n) {
                 mean += statistics_instance.data[n - 1]
             }
             mean /= (n > 2 ? n - 1 : n)

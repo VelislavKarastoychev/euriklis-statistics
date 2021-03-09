@@ -2,6 +2,8 @@
 module.exports = {
     IsParametersCorrect : require('./IsParametersCorrect'),
     IsDataCorrect : require('./IsDataCorrect'),
-    IsTypeCorrect : require('./IsTypeCorrect')
+    IsTypeCorrect : require('./IsTypeCorrect'),
+    IsMetadataCorrect : require('./IsMetadataCorrect'),
+    
     
 }
